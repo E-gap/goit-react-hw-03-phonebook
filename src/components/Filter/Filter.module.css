@@ -1,0 +1,17 @@
+.filter {
+  padding-left: 20px;
+}
+
+.block {
+  display: block;
+}
+
+.block label {
+  font-size: 30px;
+}
+
+.block input {
+  border: 2px solid grey;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
