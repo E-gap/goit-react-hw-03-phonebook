@@ -10,6 +10,21 @@ export class App extends React.Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const list = localStorage.getItem('contacts');
+    const parseList = JSON.parse(list);
+
+    if (parseList) {
+      this.setState({ contacts: parseList });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   handlerChangeFilter = event => {
     this.setState({
       filter: event.target.value,
