@@ -1,4 +1,5 @@
 import React from 'react';
+import ContactListItem from '../ContactListItem/ContactListItem.jsx';
 import css from './ContactList.module.css';
 import PropTypes from 'prop-types';
 
@@ -9,26 +10,25 @@ const ContactList = ({ filter, contacts, deleteContact }) => {
         .filter(contact =>
           contact.name.toLowerCase().includes(filter.toLowerCase())
         )
-        .map(contact => {
-          return (
-            <li key={contact.id} className={css.listItem}>
-              {contact.name}: {contact.number}
-              <button
-                type="button"
-                contact={contact.id}
-                onClick={deleteContact}
-              >
-                Delete
-              </button>
-            </li>
-          );
-        })}
+        .map(contact => (
+          <ContactListItem
+            id={contact.id}
+            name={contact.name}
+            number={contact.number}
+            deleteContact={deleteContact}
+          />
+        ))}
     </ul>
   );
 };
 
 ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   filter: PropTypes.string.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };

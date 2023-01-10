@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import ContactForm from './ContactForm/ContactForm.jsx';
 import ContactList from './ContactList/ContactList.jsx';
 import Filter from './Filter/Filter.jsx';
@@ -33,11 +32,10 @@ export class App extends React.Component {
 
   deleteContact = event => {
     const deleteContactId = event.currentTarget.getAttribute('contact');
-    console.log(deleteContactId);
+
     const newContacts = this.state.contacts.filter(
       contact => contact.id !== deleteContactId
     );
-    console.log(newContacts);
 
     this.setState({
       contacts: [...newContacts],
@@ -46,7 +44,7 @@ export class App extends React.Component {
 
   formHandlerSubmit = data => {
     const contact = {
-      id: uuidv4(),
+      id: data.name.toLowerCase(),
       name: data.name,
       number: data.number,
     };
@@ -60,11 +58,11 @@ export class App extends React.Component {
       <div
         style={{
           height: '100vh',
-          //display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           fontSize: 40,
           color: '#010101',
+          paddingLeft: '50px',
         }}
       >
         <h1>Phonebook</h1>

@@ -1,11 +1,5 @@
 .contactList {
   font-size: 40px;
   width: 500px;
-}
-
-.listItem button {
-  font-size: 25px;
-  border-radius: 10px;
-  padding: 5px;
-  margin-left: 30px;
+  padding-left: 100px;
 }

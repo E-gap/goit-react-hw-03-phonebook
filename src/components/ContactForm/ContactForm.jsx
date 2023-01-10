@@ -31,7 +31,7 @@ class ContactForm extends React.Component {
     event.preventDefault();
 
     const array = this.props.contacts.filter(
-      contact => contact.name === this.state.name
+      contact => contact.name.toLowerCase() === this.state.name.toLowerCase()
     );
     if (array.length > 0) {
       alert(`${this.state.name} is already in contacts`);
@@ -82,7 +82,12 @@ class ContactForm extends React.Component {
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default ContactForm;
