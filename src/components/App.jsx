@@ -30,27 +30,35 @@ export class App extends React.Component {
     });
   };
 
+  filterContacts = () => {
+    return this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+  };
+
   deleteContact = event => {
     const deleteContactId = event.currentTarget.getAttribute('contact');
 
-    const newContacts = this.state.contacts.filter(
-      contact => contact.id !== deleteContactId
-    );
-
-    this.setState({
-      contacts: [...newContacts],
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(
+          contact => contact.name !== deleteContactId
+        ),
+      };
     });
   };
 
   formHandlerSubmit = data => {
-    const contact = {
-      id: data.name.toLowerCase(),
-      name: data.name,
-      number: data.number,
-    };
-    this.setState(prevState => {
-      return { contacts: [contact, ...prevState.contacts] };
-    });
+    const array = this.state.contacts.filter(
+      contact => contact.name.toLowerCase() === data.name.toLowerCase()
+    );
+    if (array.length > 0) {
+      alert(`${data.name} is already in contacts`);
+    } else {
+      this.setState(prevState => {
+        return { contacts: [data, ...prevState.contacts] };
+      });
+    }
   };
 
   render() {
@@ -66,21 +74,28 @@ export class App extends React.Component {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactForm
-          onSubmit={this.formHandlerSubmit}
-          contacts={this.state.contacts}
-        />
+        <ContactForm onSubmit={this.formHandlerSubmit} />
 
         <h2>Contacts</h2>
         <Filter
           filter={this.state.filter}
           onChange={this.handlerChangeFilter}
         />
-        <ContactList
-          filter={this.state.filter}
-          contacts={this.state.contacts}
-          deleteContact={this.deleteContact}
-        />
+        {this.state.contacts.length > 0 ? (
+          <ContactList
+            filteredContacts={this.filterContacts()}
+            deleteContact={this.deleteContact}
+          />
+        ) : (
+          <p
+            style={{
+              color: 'green',
+              fontSize: '40px',
+            }}
+          >
+            This phonebook is empty
+          </p>
+        )}
       </div>
     );
   }

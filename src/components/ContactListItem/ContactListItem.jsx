@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const ContactListItem = ({ id, name, number, deleteContact }) => {
   return (
-    <li key={id} className={css.listItem}>
+    <li className={css.listItem}>
       {name}: {number}
       <button type="button" contact={id} onClick={deleteContact}>
         Delete
