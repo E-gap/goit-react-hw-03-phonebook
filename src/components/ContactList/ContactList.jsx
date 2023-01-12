@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 const ContactList = ({ filteredContacts, deleteContact }) => {
   return filteredContacts.length > 0 ? (
     <ul className={css.contactList}>
-      {filteredContacts.map(contact => (
+      {filteredContacts.map(({ id, name, number }) => (
         <ContactListItem
-          key={contact.name}
-          id={contact.name}
-          name={contact.name}
-          number={contact.number}
+          key={id}
+          id={id}
+          name={name}
+          number={number}
           deleteContact={deleteContact}
         />
       ))}

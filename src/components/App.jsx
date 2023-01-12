@@ -36,14 +36,10 @@ export class App extends React.Component {
     );
   };
 
-  deleteContact = event => {
-    const deleteContactId = event.currentTarget.getAttribute('contact');
-
+  deleteContact = id => {
     this.setState(prevState => {
       return {
-        contacts: prevState.contacts.filter(
-          contact => contact.name !== deleteContactId
-        ),
+        contacts: prevState.contacts.filter(contact => contact.id !== id),
       };
     });
   };

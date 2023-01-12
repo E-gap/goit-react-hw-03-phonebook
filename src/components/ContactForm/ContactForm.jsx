@@ -1,11 +1,16 @@
 import React from 'react';
 import css from './ContactForm.module.css';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
 class ContactForm extends React.Component {
   state = {
     name: '',
     number: '',
+  };
+
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
   };
 
   reset = () => {
@@ -29,7 +34,8 @@ class ContactForm extends React.Component {
 
   handlerSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit(this.state);
+    const contact = { ...this.state, id: uuidv4() };
+    this.props.onSubmit(contact);
     this.reset();
   };
 
@@ -71,9 +77,5 @@ class ContactForm extends React.Component {
     );
   }
 }
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default ContactForm;

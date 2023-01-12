@@ -6,7 +6,12 @@ const ContactListItem = ({ id, name, number, deleteContact }) => {
   return (
     <li className={css.listItem}>
       {name}: {number}
-      <button type="button" contact={id} onClick={deleteContact}>
+      <button
+        type="button"
+        onClick={() => {
+          deleteContact(id);
+        }}
+      >
         Delete
       </button>
     </li>
